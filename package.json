@@ -1,0 +1,19 @@
+{
+  "name": "gmail-attachment-extractor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "googleapis": "^100.0.0",
+    "nodemon": "^2.0.16"
+  }
+}
