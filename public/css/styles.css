@@ -1,0 +1,20 @@
+html, body {
+  min-height: 100%;
+}
+
+.container {
+  text-align: center;
+}
+
+.heading {
+  font-size: 72px;
+  margin-top: 200px;
+}
+
+.bi-google {
+  margin-bottom: 4px;
+}
+
+.cta {
+  margin-top: 40px;
+}
