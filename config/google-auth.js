@@ -1,4 +1,4 @@
-import google from 'googleapis';
+import {google} from 'googleapis';
 import axios from 'axios';
 import 'dotenv/config';
 
@@ -10,7 +10,7 @@ const oauth2Client = new google.auth.OAuth2(
   CALLBACK_URL
 );
 
-function getGoogleAuthURL() {
+export function getGoogleAuthURL() {
   const scopes = [
     'profile',
     'email',
@@ -24,7 +24,7 @@ function getGoogleAuthURL() {
   });
 }
 
-async function getGoogleUser({ code }) {
+export async function getGoogleUser({ code }) {
   const { tokens } = await oauth2Client.getToken(code);
   oauth2Client.setCredentials({
     refresh_token: tokens.refresh_token
@@ -48,7 +48,7 @@ async function getGoogleUser({ code }) {
     return googleUser;
 }
 
-function getOAuth2Client(refresh_token) {
+export function getOAuth2Client(refresh_token) {
   const oAuth2Client = new google.auth.OAuth2(
     GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET,
@@ -59,5 +59,3 @@ function getOAuth2Client(refresh_token) {
   });
   return oAuth2Client;
 }
-
-module.exports = { getOAuth2Client, getGoogleAuthURL, getGoogleUser};
