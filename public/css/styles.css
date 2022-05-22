@@ -18,3 +18,43 @@ html, body {
 .cta {
   margin-top: 40px;
 }
+
+.max-height{
+  height: 100vh;
+}
+
+.form{
+  position: relative;
+  max-width: 500px;
+  margin: 100px auto;
+}
+
+.search-icon {
+  position: absolute;
+  top: 14px;
+  left: 20px;
+  color: #9ca3af;
+}
+
+.btn-search {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px 16px;
+}
+
+.btn-search:hover {
+  box-shadow: 1px 2px 2px #9ca3af;
+}
+
+.form-input {
+  height: 46px;
+  text-indent: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+}
+
+.form-input:focus{
+  box-shadow: 1px 2px 6px #9ca3af;
+  border: 1px solid #d1d5db;
+}
