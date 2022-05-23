@@ -41,6 +41,7 @@ html, body {
   top: 0;
   right: 0;
   padding: 10px 16px;
+  border-radius: 0 10px 10px 0;
 }
 
 .btn-search:hover {
@@ -57,4 +58,9 @@ html, body {
 .form-input:focus{
   box-shadow: 1px 2px 6px #9ca3af;
   border: 1px solid #d1d5db;
+}
+
+.list-container {
+  width: 800px;
+  margin: 100px auto;
 }
