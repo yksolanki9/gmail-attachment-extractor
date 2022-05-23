@@ -12,15 +12,12 @@ export async function getAttachments(userId, searchQuery) {
 
   const messagesList = await gmail.users.messages.list({
     userId: user.email,
-    q: `has:attachment ${searchQuery}`,
+    q: `has:attachment xlsx ${searchQuery}`,
     maxResults: 30 //Remove this after testing
   });
 
   if(!messagesList?.data?.messages?.length) {
-    return res.render('pages/search-messages', { data: {
-        errorMsg: 'No Results found'
-      }
-    });
+    return null;
   }
 
   const messagesData = await Promise.all(messagesList.data.messages.map(async (message) => {

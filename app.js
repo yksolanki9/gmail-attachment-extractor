@@ -47,12 +47,23 @@ app.get('/auth/callback', async(req, res) => {
 });
 
 app.get('/messages/search/:userId', async(req, res) => {
-  const attachments = await getAttachments(req.params.userId, '');
-  const attachmentNames = attachments.map((data) => data.fileName);
-
-  return res.render('pages/search-messages', { data: {
-    attachmentNames
-  }});
+  try {
+    const attachments = await getAttachments(req.params.userId, '');
+  
+    if(!attachments) {
+      return res.render('pages/search-messages', { data: {
+          errorMsg: 'No Results found'
+        }
+      })
+    }
+  
+    const attachmentNames = attachments.map((data) => data.fileName);
+    return res.render('pages/search-messages', { data: {
+      attachmentNames
+    }});
+  } catch(err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 app.post('/messages/search/:userId', async(req, res) => {
@@ -60,13 +71,23 @@ app.post('/messages/search/:userId', async(req, res) => {
   // http://localhost:3000/messages/search/628ba16b15244cbf6237821a
 
   try {
-    const attachments = await getAttachments(req.params.userId, req.body.searchQuery);
+    const searchQuery = req.body.searchQuery;
+    const attachments = await getAttachments(req.params.userId, searchQuery);
+
+    if(!attachments) {
+      return res.render('pages/search-messages', { data: {
+          errorMsg: 'No Results found'
+        }
+      })
+    }
+
     const attachmentNames = attachments.map((data) => data.fileName);
 
     // xlsxMessagesData[0].data.data = xlsxMessagesData[0].data.data.replaceAll('-', '+').replaceAll('_', '/');
 
     return res.render('pages/search-messages', { data: {
-      attachmentNames
+      attachmentNames,
+      searchQuery
     }});
   } catch(err) {
     res.status(500).json({ error: err.message });
