@@ -76,7 +76,8 @@ app.post('/messages/search/:userId', async(req, res) => {
 
     if(!attachments) {
       return res.render('pages/search-messages', { data: {
-          errorMsg: 'No Results found'
+          errorMsg: 'No Results found',
+          searchQuery
         }
       })
     }

@@ -11,6 +11,10 @@ html, body {
   margin-top: 200px;
 }
 
+.heading-2 {
+  margin-top: 60px;
+}
+
 .bi-google {
   margin-bottom: 4px;
 }
@@ -26,7 +30,7 @@ html, body {
 .form{
   position: relative;
   max-width: 500px;
-  margin: 100px auto;
+  margin: 20px auto 60px;
 }
 
 .search-icon {
@@ -62,5 +66,5 @@ html, body {
 
 .list-container {
   width: 800px;
-  margin: 100px auto;
+  margin: 60px auto;
 }

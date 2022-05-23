@@ -1,5 +1,6 @@
 <%- include('../partials/header') %>
 <div class="container">
+  <h2 class="heading-2">Search for attachments</h2>
   <div class="form">
     <form action="?" method="POST">
       <input type="text" name="searchQuery" id="searchQuery" value="<%= (typeof data !== 'undefined') && data.searchQuery %>" class="form-control form-input" placeholder="Search">
@@ -16,6 +17,8 @@
       <div class="alert alert-danger" role="alert">
         <%= data.errorMsg %>
       </div>
+    <% } else { %>
+      <h5 class="text-muted text-center">List of Attachments</h5>
     <% } %>
     <ul class="list-group list-group-light">
       <!-- Loop over this element to show all attachments -->
