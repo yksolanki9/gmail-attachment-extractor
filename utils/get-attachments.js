@@ -4,6 +4,8 @@ import { getOAuth2Client } from '../config/google-auth.js';
 import { v4 as uuidv4 } from 'uuid';
 import { writeFile} from 'node:fs/promises';
 import { Base64 } from 'js-base64';
+import { Message } from '../models/Message.model.js';
+import mongoose from 'mongoose';
 
 const gmail = google.gmail('v1');
 
@@ -16,8 +18,7 @@ export async function getAttachments(userId, searchQuery) {
   
     const messagesList = await gmail.users.messages.list({
       userId: user.email,
-      q: `has:attachment xlsx ${searchQuery}`,
-      maxResults: 10 //Remove this after testing
+      q: `in:inbox has:attachment xlsx ${searchQuery}`
     });
   
     if(!messagesList?.data?.messages?.length) {
@@ -45,18 +46,38 @@ export async function getAttachments(userId, searchQuery) {
         messageId: message.id,
         userId: user.email
       });
+
+      const savedMessage = await Message.findOne({
+        messageId: message.id
+      });
+
+      //If an attachment is already saved in nodejs, dont save it again
+      if(!savedMessage) {
+        const decodedData = Base64.toUint8Array(attachment.data.data);
+        const storedFileName = uuidv4() + '.xlsx';
+        await writeFile(`attachments/${storedFileName}`, decodedData);
+    
+        const messageData = new Message({
+          _id: mongoose.Types.ObjectId(),
+          userId: user.email,
+          messageId: message.id,
+          attachmentId: attachmentDetails.attachmentId,
+          fileName: storedFileName,
+          originalFileName: attachmentDetails.fileName
+        });
   
-      const decodedData = Base64.toUint8Array(attachment.data.data);
-      const fileName = uuidv4();
-      await writeFile(`attachments/${fileName}.xlsx`, decodedData);
+        await messageData.save();
   
-      const obj = {
-        userId: user.email,
-        messageId: message.id,
-        attachmentId: attachmentDetails.attachmentId,
-        fileName: attachmentDetails.fileName,
+        await User.findByIdAndUpdate(userId, {
+          '$push': {
+            'messages': messageData._id
+          }
+        })
       }
-      return obj;
+  
+      return {
+        originalFileName: attachmentDetails.fileName
+      };
     }));
     
     return messagesData.filter((messageData) => !!messageData);

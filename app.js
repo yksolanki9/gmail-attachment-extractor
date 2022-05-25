@@ -57,7 +57,7 @@ app.get('/messages/search/:userId', async(req, res) => {
       })
     }
   
-    const attachmentNames = attachments.map((data) => data.fileName);
+    const attachmentNames = attachments.map((data) => data.originalFileName);
     return res.render('pages/search-messages', { data: {
       attachmentNames
     }});
@@ -82,9 +82,7 @@ app.post('/messages/search/:userId', async(req, res) => {
       })
     }
 
-    const attachmentNames = attachments.map((data) => data.fileName);
-
-    // xlsxMessagesData[0].data.data = xlsxMessagesData[0].data.data.replaceAll('-', '+').replaceAll('_', '/');
+    const attachmentNames = attachments.map((data) => data.originalFileName);
 
     return res.render('pages/search-messages', { data: {
       attachmentNames,
