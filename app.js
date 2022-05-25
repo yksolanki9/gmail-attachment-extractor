@@ -67,9 +67,6 @@ app.get('/messages/search/:userId', async(req, res) => {
 });
 
 app.post('/messages/search/:userId', async(req, res) => {
-  // URL FOR TESTING
-  // http://localhost:3000/messages/search/628ba16b15244cbf6237821a
-
   try {
     const searchQuery = req.body.searchQuery;
     const attachments = await getAttachments(req.params.userId, searchQuery);
