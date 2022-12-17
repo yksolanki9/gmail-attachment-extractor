@@ -1,3 +1,9 @@
+## About
+This is a NodeJS application which uses Google OAuth to authenticate users and fetches attachments from their Gmail account based on the search query. The attachments are downloaded on the server and the unique attachment id is stored in the MongoDB database. We can then download the attachment by providing the attachment id.
+
+### UI Snapshot
+![UI Preview](snapshots/gmail-attachment-preview.png)
+
 ## Prerequisites
 ### Setting up MongoDB Project
 - Create a new cluster in [MongoDB](https://www.mongodb.com/) to store user and email data. Copy the connection string and add the `MONGO_URI` to the `.env` file
